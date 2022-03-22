@@ -154,7 +154,7 @@ class UsuariosController extends Controller
             'foto'=>''
 
         ]);
-
+        //Sweetalert
         return redirect('Usuarios')->with('UsuarioCreado','OK');
     }
 
