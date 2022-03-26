@@ -104,6 +104,31 @@
 
     $('.sidebar-menu').tree()
 
+    $('.table').on('click','.EliminarUsuario', function(){
+
+      var Uid = $(this).attr('Uid');
+      var Usuario = $(this).attr('Usuario');
+
+      Swal.fire({
+
+        title: 'Estás seguro de eliminar al Usuario: '+Usuario+'?',
+        icon: 'warning',
+        showCancelButton: true,
+        cancelButtonText: 'Cancelar',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Eliminar',
+        confirmButtonColor: '#3058d6'
+
+      }).then((result) => {
+
+        if(result.isConfirmed){
+
+          window.location = "Eliminar-Usuario/"+Uid;
+        }
+      })
+
+    })
+
 </script>
 
   @if(session('UsuarioCreado') == 'OK')

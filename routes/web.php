@@ -29,3 +29,5 @@ Route::put('Mis-Datos', [UsuariosController::class, 'DatosUpdate']);
 
 Route::get('Usuarios', [UsuariosController::class, 'index']);
 Route::post('Usuarios', [UsuariosController::class, 'store']);
+Route::get('Eliminar-Usuario/{id}', [UsuariosController::class, 'destroy']);
+Route::get('Editar-Usuario/{id}', [UsuariosController::class, 'edit']);

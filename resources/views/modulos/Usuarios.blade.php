@@ -73,9 +73,13 @@
 
                             <td>
 
-                                <button class="btn btn-success"><i class="fa fa-pencil"></i></button>
+                                <a href="{{ url('Editar-Usuario/'.$user->id) }}">
 
-                                <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                    <button class="btn btn-success"><i class="fa fa-pencil"></i></button>
+
+                                </a>
+
+                                <button type="button" class="btn btn-danger EliminarUsuario" Uid="{{$user->id}}" Usuario="{{$user->name}}" data-dismiss="modal"><i class="fa fa-trash"></i></button>
 
                             </td>
 
@@ -95,6 +99,83 @@
 
 </div>
 
+
+<div class="modal fade" id="EditarUsuario">
+
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+
+            <form method="post" action="">
+
+                @csrf
+
+                <div class="modal-body">
+
+                    <div class="box-body">
+
+                        <div class="form-group">
+
+                            <h2>Tipo de Usuario</h2>
+
+                            <select class="form-control input-lg" name="rol" required="">
+
+                                <option value="">Seleccionar...</option>
+
+                                <option value="Administrador">Administrador</option>
+                                <option value="Vendedor">Vendedor</option>
+
+                            </select>
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <h2>Nombre:</h2>
+                            <input type="text" class="form-control input-lg" name="name" required="" value="{{old('name')}}">
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <h2>Email:</h2>
+                            <input type="email" class="form-control input-lg" name="email" required="">
+
+                        </div>
+
+                        @error('email')
+
+                            <br>
+                            <div class="alert alert-danger">El Email ya existe</div>
+
+                        @enderror
+
+                        <div class="form-group">
+
+                            <h2>Contraseña:</h2>
+                            <input type="text" class="form-control input-lg" name="password" required="">
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button type="submit" class="btn btn-primary">Crear</button>
+
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
 
 <div class="modal fade" id="CrearUsuario">
 
@@ -172,6 +253,8 @@
     </div>
 
 </div>
+
+
 
 
 @endsection
