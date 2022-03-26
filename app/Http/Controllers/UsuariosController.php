@@ -181,7 +181,7 @@ class UsuariosController extends Controller
     }
     
 
-    public function edit(Usuarios $usuarios)
+    public function edit(Usuarios $id)
     {
         
         if(auth()->user()->rol != 'Administrador'){
@@ -192,7 +192,7 @@ class UsuariosController extends Controller
 
         $usuarios = Usuarios::all();
 
-        $usuario = Usuarios::find($usuarios->id);
+        $usuario = Usuarios::find($id->id);
 
         return view('modulos.Usuarios', compact('usuarios','usuario'));
     }
