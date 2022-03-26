@@ -177,71 +177,77 @@
 
 </div>
 
+<?php
 
-<div class="modal fade" id="EditarUsuario">
+$exp = explode('/', $_SERVER["REQUEST_URI"]);
 
-    <div class="modal-dialog">
+?>
 
-        <div class="modal-content">
+@if($exp[1] == 'Editar-Usuario')
 
-            <form method="post" action="">
+    <div class="modal fade" id="EditarUsuario">
 
-                @csrf
+        <div class="modal-dialog">
 
-                <div class="modal-body">
+            <div class="modal-content">
 
-                    <div class="box-body">
+                    <form method="post" action="{{ url('actualizar-Usuario/'.$exp[2]) }}">
 
-                        <div class="form-group">
+                        @csrf
+                        @method('put')
 
-                            <h2>Nombre:</h2>
-                            <input type="text" class="form-control input-lg" name="name" required="" value="{{$usuario->name}}">
+                        <div class="modal-body">
+
+                            <div class="box-body">
+
+                                <div class="form-group">
+
+                                    <h2>Nombre:</h2>
+                                    <input type="text" class="form-control input-lg" name="name" required="" value="{{$usuario->name}}">
+
+                                </div>
+
+                                <div class="form-group">
+
+                                    <h2>Email:</h2>
+                                    <input type="email" class="form-control input-lg" name="email" required="" value="{{$usuario->email}}">
+
+                                </div>
+
+                                @error('email')
+
+                                    <br>
+                                    <div class="alert alert-danger">El Email ya existe</div>
+
+                                @enderror
+
+                                <div class="form-group">
+
+                                    <h2>Contraseña:</h2>
+                                    <input type="text" class="form-control input-lg" name="password" required="">
+
+                                </div>
+
+                            </div>
 
                         </div>
 
-                        <div class="form-group">
+                        <div class="modal-footer">
 
-                            <h2>Email:</h2>
-                            <input type="email" class="form-control input-lg" name="email" required="" value="{{$usuario->email}}">
+                            <button type="submit" class="btn btn-primary">Editar</button>
 
-                        </div>
-
-                        @error('email')
-
-                            <br>
-                            <div class="alert alert-danger">El Email ya existe</div>
-
-                        @enderror
-
-                        <div class="form-group">
-
-                            <h2>Contraseña:</h2>
-                            <input type="text" class="form-control input-lg" name="password" required="">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
 
                         </div>
 
-                    </div>
+                    </form>
 
-                </div>
-
-                <div class="modal-footer">
-
-                    <button type="submit" class="btn btn-primary">Crear</button>
-
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-
-                </div>
-
-            </form>
+            </div>
 
         </div>
 
     </div>
 
-</div>
-
-
-
-
+@endif
 
 @endsection

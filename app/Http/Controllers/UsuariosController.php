@@ -167,14 +167,8 @@ class UsuariosController extends Controller
         $usuario = Usuarios::find($id);
         
         $exp = explode("/", $usuario->foto); 
-
-        if(Storage::delete('public/'.$usuario->foto)){
-
-            Storage::deleteDirectory('public/'.$exp[0].'/'.$exp[1]);
-
-            Usuarios::destroy($id);
-
-        }
+        
+        Usuarios::destroy($id);
 
         return redirect('Usuarios');
         
@@ -197,14 +191,50 @@ class UsuariosController extends Controller
         return view('modulos.Usuarios', compact('usuarios','usuario'));
     }
 
+    
 
-    public function show(Usuarios $usuarios)
+    public function update(Request $request, $id)
     {
-        //
+
+        $usuario = Usuarios::find($id);
+
+        if($usuario["email"] != request('email')){
+
+            $datos = request()->validate([
+
+                'name' => ['required'],
+                'email' => ['required', 'email', 'unique:users']
+
+            ]);
+
+        }else{
+
+            $datos = request()->validate([
+
+                'name' => ['required'],
+                'email' => ['required', 'email']
+
+            ]);
+
+        }
+
+        if($usuario["password"] != request('password')){
+
+            $clave = request('password');
+
+        }else{
+
+            $clave = $usuario["password"];
+
+        }
+        DB::table('users')->where('id', $usuario["id"])->update(['name' => $datos["name"], 'email' => $datos["email"], 'password'=>Hash::make($clave)]);
+
+        return redirect('Usuarios');
+
     }
 
 
-    public function update(Request $request, Usuarios $usuarios)
+    public function show(Usuarios $usuarios)
     {
         //
     }
